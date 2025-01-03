@@ -8,15 +8,15 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import homeRouter from "./routers/home.js";
 import logoutRouter from "./routers/logout.js";
-import updateRouter from './routers/update.js';
+
 
 dotenv.config();
 
 const app = express();
 
 //middleware
-app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
+app.use(express.json());
 
 app.use(morgan("tiny"));
 
@@ -48,7 +48,7 @@ connectDB(process.env.DB_URI);
 app.use('/api', productRouter);
 app.use('/auth', authRouter);
 app.use("/", logoutRouter);
-app.use("/", updateRouter);
+// app.use("/", updateRouter);
 
 //dang ky
 app.get("/signup", (req, res) => {

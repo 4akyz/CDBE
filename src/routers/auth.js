@@ -1,6 +1,7 @@
 import express from "express";
-import { signin,logout, signup } from "../controller/auth";
-import { updateUserInfo,renderUpdateUserPage } from "../controller/updateProfile";
+import { signin,logout, signup, updateUserInfo,
+        renderUpdateUserPage,updateUserPassword, renderUpdateUserPassword } from "../controller/auth";
+// import { updateUserInfo,renderUpdateUserPage,updateUserPassword, renderUpdateUserPassword } from "../controller/updateProfile";
 
 const router = express.Router();
 
@@ -9,5 +10,7 @@ router.post(`/signin`, signin);
 router.get(`/logout`, logout);
 router.get("/update-info", renderUpdateUserPage); // Trang đổi thông tin
 router.post("/update-info", updateUserInfo); // Xử lý đổi thông tin
+router.get("/update-password", renderUpdateUserPassword);
+router.post("/update-password", updateUserPassword);//thay đổi mật khẩu
 
 export default router;
