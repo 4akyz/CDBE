@@ -53,11 +53,11 @@
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                            <span>Chào, <%= username %>!</span>
+                            <span>Chào, <%=username %>!</span>
                             </button>
                             <div class="dropdown-menu" aria-labelledby="triggerId">
-                                <a class="dropdown-item" href="/update-info">Cap Nhat Thong Tin</a>
-                                <a class="dropdown-item" href="#">Doi Mat Khau</a>
+                                <a class="dropdown-item" href="/auth/update-info">Cap Nhat Thong Tin</a>
+                                <a class="dropdown-item" href="/auth/update-password">Doi Mat Khau</a>
                             </div>
                         </div>
                         
@@ -71,6 +71,7 @@
         <main>
         
             <div class="container">
+                <h1>Danh sach san pham</h1>
                 <% if (typeof products !== 'undefined' && products.length > 0) { %>
                     <% products.forEach(product => { %>
                         <ul class="list-group list-group-flush">

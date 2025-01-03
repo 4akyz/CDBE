@@ -2,6 +2,7 @@ import Product from "../models/product.js";
 
 export const renderHome = async (req, res) => {
     try {
+        console.log(req.user);
         const username = req.query.username || req.user?.username || "Người dùng";
 
         const products = await Product.find();
@@ -16,11 +17,3 @@ export const renderHome = async (req, res) => {
         res.status(500).send("Đã xảy ra lỗi, vui lòng thử lại sau.");
     }
 };
-// export const renderUpdateInfo = (req, res) => {
-//     const user = {
-//         username: "",
-//         email: "",
-//         age: 25
-//     }; // Thay thế bằng dữ liệu thực tế từ DB
-//     res.render("update-info", { user, errors: [] });
-// };

@@ -38,7 +38,7 @@
                             <h4>Login</h4>
                         </div>
                         <div class="card-body">
-                            <form action="/auth/signin" method="post">
+                            <form action="/auth/signin" method="POST">
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
                                     <input type="text" class="form-control" id="username" name="username" placeholder="Nhap ten nguoi dung">
@@ -50,6 +50,9 @@
                                 <button type="submit" class="btn btn-primary">Login</button>
                                 <p>Bạn chưa có tài khoản? <a href="/signup">Đăng ký</a></p>
                             </form>
+                            <% if (message) { %>
+                                <div class="message"><%= message %></div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
