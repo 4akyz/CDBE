@@ -76,7 +76,7 @@ export const logout = async (req, res) =>{
         return  res.redirect('/?message=Đăng xuất thành công!');
     })
 }
-
+//Cập nhật thông tin người dùng
 export const renderUpdateUserPage = async (req, res) => {
     try {
         // Kiểm tra xem người dùng đã đăng nhập hay chưa
@@ -100,7 +100,7 @@ export const renderUpdateUserPage = async (req, res) => {
         res.status(500).send("Đã xảy ra lỗi, vui lòng thử lại sau.");
     }
 };
-//Xu ly
+//Xu ly cap nhat thong tin nguoi dung
 export const updateUserInfo = async (req, res) => {
     const { username, age } = req.body;
     const products = await Product.find();
