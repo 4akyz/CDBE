@@ -136,7 +136,7 @@ export const updateUserInfo = async (req, res) => {
         });
     }
 };
-
+//Cập nhật mật khẩu
 export const renderUpdateUserPassword = async (req, res) => {
     console.log(req.session);
     try {
@@ -151,7 +151,7 @@ export const renderUpdateUserPassword = async (req, res) => {
         res.status(500).send("Đã xảy ra lỗi, vui lòng thử lại sau.");
     }
 };
-
+//Xu ly cap nhat mat khau
 export const updateUserPassword = async (req, res) => {
     try {
       const { oldPassword, password, confirmPassword } = req.body;
