@@ -84,15 +84,24 @@ export const renderUpdateUserPage = async (req, res) => {
             return res.redirect("/signin");
         }
 
+        console.log("UserId from session:", req.session.userId);
+
         // Lấy thông tin người dùng từ cơ sở dữ liệu
         const user = await User.findById(req.session.userId);
+        
         if (!user) {
+            console.log("User not found in database for ID:", req.session.userId);
             return res.status(404).send("Không tìm thấy thông tin người dùng.");
         }
 
+        const username = user.username;
+
+        console.log("User found:", user);
+        console.log("Username:", username);
         // Render trang cập nhật với thông tin người dùng
         res.render("updateProfile", { 
             user, // Truyền thông tin người dùng vào view
+            username,
             errors: [] 
         });
     } catch (error) {
