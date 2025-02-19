@@ -150,11 +150,12 @@ export const renderUpdateUserPassword = async (req, res) => {
     console.log(req.session);
     try {
         const user = await User.findById(req.session.userId); 
+        const username = user.username;
         if (!user) {
             return res.status(404).send("Không tìm thấy thông tin người dùng.");
         }
 
-        res.render("updatePassword", { user, errors: [] });
+        res.render("updatePassword", { user, username, errors: [] });
     } catch (error) {
         console.error("Lỗi khi hiển thị trang cập nhật thông tin:", error);
         res.status(500).send("Đã xảy ra lỗi, vui lòng thử lại sau.");
