@@ -48,10 +48,8 @@ connectDB(process.env.DB_URI);
 app.use('/api', productRouter);
 app.use('/auth', authRouter);
 app.use("/", logoutRouter);
-app.use("/about", homeRouter);
-app.use("/genres", homeRouter);
-app.use("/follow", homeRouter);
-// app.use("/", updateRouter);
+app.use("/home", homeRouter);
+
 
 //dang ky
 app.get("/signup", (req, res) => {

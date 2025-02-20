@@ -1,10 +1,13 @@
 import Product from "../models/product.js";
+import User from "../models/user.js";
 
 // Hiển thị trang chủ
 export const renderHome = async (req, res) => {
     try {
-        console.log(req.user);
-        const username = req.query.username || req.user?.username || "Người dùng";
+        console.log(req.session.userId);
+        const user = await User.findById(req.session.userId);
+        console.log(user);
+        const username = user.username;
 
         const products = await Product.find();
 

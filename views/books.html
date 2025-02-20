@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga Card</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .manga-card {
+            background-color: #2C2C2C;
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .manga-card img {
+            width: 100px;
+            height: auto;
+            border-radius: 5px;
+        }
+        .manga-info {
+            flex-grow: 1;
+        }
+        .tags span {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            margin-right: 5px;
+        }
+        .status {
+            background-color: #28a745;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 0.9rem;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <div class="manga-card">
+            <img src="https://via.placeholder.com/100" alt="Manga Cover">
+            <div class="manga-info">
+                <h5>🇰🇷 Raided the God's Warehouse</h5>
+                <div class="d-flex align-items-center mb-2">
+                    <span class="me-2">⭐ 8.24</span>
+                    <span class="me-2">🔖 886</span>
+                    <span class="me-2">📖 N/A</span>
+                    <span>💬 1</span>
+                    <span class="status ms-auto">🟢 Ongoing</span>
+                </div>
+                <div class="tags mb-2">
+                    <span>ACTION</span>
+                    <span>LONG STRIP</span>
+                    <span>DRAMA</span>
+                    <span>FANTASY</span>
+                    <span>WEB COMIC</span>
+                    <span>FULL COLOR</span>
+                </div>
+                <p class="text" style="font-size: 0.9rem; color: white;">
+                    The Tower’s peace was shattered by the Outer invaders and the Great War of Gods and Demons,
+                    leading to the extinction of humanity...
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
