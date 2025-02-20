@@ -1,4 +1,3 @@
-import Product from "../models/product.js";
 import User from "../models/user.js";
 import Book from "../models/book.js";
 
@@ -13,12 +12,10 @@ export const renderHome = async (req, res) => {
         const books = await Book.find();
         console.log(books);
         console.log(books.cover);
-        const products = await Product.find();
 
         res.render("home1", {
             username,
             books,
-            products,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
     } catch (error) {
@@ -31,10 +28,13 @@ export const renderHome = async (req, res) => {
 export const renderGenres = async (req, res) => {
     try {
         console.log(req.user);
+        
         const username = req.query.username || req.user?.username || "Người dùng";
+        const books = await Book.find();
 
         res.render("genres", {
             username,
+            books,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
     } catch (error) {
@@ -48,9 +48,11 @@ export const renderFollow = async (req, res) => {
     try {
         console.log(req.user);
         const username = req.query.username || req.user?.username || "Người dùng";
+        const books = await Book.find();
 
         res.render("follow", {
             username,
+            books,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
     } catch (error) {
@@ -64,9 +66,11 @@ export const renderAbout = async (req, res) => {
     try {
         console.log(req.user);
         const username = req.query.username || req.user?.username || "Người dùng";
+        const books = await Book.find();
 
         res.render("about", {
             username,
+            books,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
     } catch (error) {
