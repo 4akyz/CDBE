@@ -1,5 +1,6 @@
 import Product from "../models/product.js";
 import User from "../models/user.js";
+import Book from "../models/book.js";
 
 // Hiển thị trang chủ
 export const renderHome = async (req, res) => {
@@ -9,10 +10,14 @@ export const renderHome = async (req, res) => {
         console.log(user);
         const username = user.username;
 
+        const books = await Book.find();
+        console.log(books);
+        console.log(books.cover);
         const products = await Product.find();
 
         res.render("home1", {
             username,
+            books,
             products,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
@@ -28,11 +33,8 @@ export const renderGenres = async (req, res) => {
         console.log(req.user);
         const username = req.query.username || req.user?.username || "Người dùng";
 
-        // const products = await Product.find();
-
         res.render("genres", {
             username,
-            // products,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
     } catch (error) {
@@ -47,11 +49,8 @@ export const renderFollow = async (req, res) => {
         console.log(req.user);
         const username = req.query.username || req.user?.username || "Người dùng";
 
-        // const products = await Product.find();
-
         res.render("follow", {
             username,
-            // products,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
     } catch (error) {
@@ -66,11 +65,8 @@ export const renderAbout = async (req, res) => {
         console.log(req.user);
         const username = req.query.username || req.user?.username || "Người dùng";
 
-        // const products = await Product.find();
-
         res.render("about", {
             username,
-            // products,
             message: req.query.message || "", // Thêm thông báo nếu có
         });
     } catch (error) {

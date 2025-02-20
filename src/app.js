@@ -8,6 +8,9 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import homeRouter from "./routers/home.js";
 import logoutRouter from "./routers/logout.js";
+import bookRouter from "./routers/book.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 
 dotenv.config();
@@ -20,10 +23,13 @@ app.use(express.json());
 
 app.use(morgan("tiny"));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app
 .set('View', './views')
 .set('view engine', 'ejs')
-.use(express.static('./public'));
+.use(express.static(path.join(__dirname,'public')));
 
 
 //Session
@@ -49,6 +55,7 @@ app.use('/api', productRouter);
 app.use('/auth', authRouter);
 app.use("/", logoutRouter);
 app.use("/home", homeRouter);
+app.use("/book", bookRouter);
 
 
 //dang ky

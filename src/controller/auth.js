@@ -2,6 +2,7 @@ import User from "../models/user";
 import { registerSchema } from "../schema/auth";
 import bcryptjs from "bcryptjs";
 import Product from "../models/product";
+import Book from "../models/book";
 
 //Dang ky
 export const signup = async (req, res) => {
@@ -38,6 +39,7 @@ export const signup = async (req, res) => {
 export const signin = async (req, res) => {
     const { username, password } = req.body;
     const products = await Product.find();
+    const books = await Book.find();
     console.log(req.body)
     console.log(req.session);
     try {
@@ -61,7 +63,7 @@ export const signin = async (req, res) => {
         req.session.userId = user._id;
         req.session.username = user.username;
 
-        res.render("home1", { products ,username: user.username });
+        res.render("home1", {books, products ,username: user.username });
     } catch (err) {
         console.error("Lỗi trong quá trình đăng nhập:", err);
         res.status(500).render("signin", {
