@@ -111,7 +111,33 @@
             position: relative;
             text-overflow: ellipsis;
         }
-        
+        .manga-banner {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 300px; /* Adjust as needed */
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center; /* Centers content vertically */
+            justify-content: center;
+        }
+
+        /* Overlay Effect */
+        .manga-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay for readability */
+        }
+
+        /* Content Positioning */
+        .manga-content {
+            position: relative;
+            z-index: 1;
+        }
         </style>
     </head>
 
@@ -168,50 +194,85 @@
                 </ul>
             </div>
         </div>
+        <div class="manga-banner" style="background-image: url('<%= book.cover %>');">
+            <div class="manga-overlay"></div>
+            <div class="container manga-content text-white py-5">
+              <div class="row">
+                <!-- Manga Cover -->
+                <div class="col-md-2 text-center">
+                  <img src="<%= book.cover %>" alt="Manga Cover" class="img-fluid rounded shadow">
+                </div>
+          
+                <!-- Manga Details -->
+                <div class="col-md-10">
+                  <h1 class="fw-bold"><%= book.title %></h1>
+                  <p class="mb-1">By <strong><%= book.author %></strong></p>
+          
+                  <!-- Status & Genres -->
+                  <div class="d-flex flex-wrap align-items-center mb-2">
+                    <div class="mt-2">
+                        <% book.genre.forEach(genre => { %>
+                            <span class="badge bg-secondary"><%= genre.trim() %></span>
+                        <% }) %>
+
+                        <% if (book.status === "Completed") { %>
+                            <span class="badge ms-3" style="background-color: #00C9F5;"><%= book.status %></span>
+                        <% } else if (book.status === "Ongoing") { %>
+                            <span class="badge bg-success ms-3"><%= book.status %></span>
+                        <% } %>
+                    </div>
+                  </div>
+          
+                  <!-- Rating & Stats -->
+                  <div class="d-flex align-items-center mb-3">
+                    <span class="text-warning fs-5 me-2">⭐ <%= book.rating %></span>
+                    <span class="me-3">📖 <%= book.follow %> </span>
+                  </div>
+          
+                  <!-- Action Buttons -->
+                  <div class="d-flex gap-2">
+                    <button class="btn btn-danger"><i class="bi bi-book"></i> Reading</button>
+                    <button class="btn btn-outline-light"><i class="bi bi-plus"></i> Add to MDList</button>
+                    <button class="btn btn-secondary"><i class="bi bi-arrow-right-circle"></i> Continue Reading</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         <main id="main-content" class="p-3">
             <div class="container mt-4">
-                <h4>Recent Update</h4>
+                <p><%= book.summary %></p>
+                <hr>
                 <div class="row">
-                    <% books.forEach(book => { %>
-                        <div class="col-md-6">
-                            <a href="/bookDetails/<%= book._id %>" class="text-decoration-none">
-                            <div class="card mb-3 bg-dark text-white">
-                                <div class="row g-0">
-                                    <div class="col-md-3 d-flex justify-content-center align-items-center">
-                                        <div class="cover-container">
-                                            <img src="<%= book.cover %>" class="img-fluid m-2" alt="<%= book.title %>">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-9">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <span class="me-2"></span> <%= book.title %>
-                                            </h5>
-                                            <div class="d-flex align-items-center">
-                                                <span>⭐ <%= book.rating.toFixed(2) %></span>
-                                                <span class="ms-3">📖 <%= book.follow.toLocaleString() %></span>
-                                                <% if (book.status === "Completed") { %>
-                                                    <span class="badge ms-3" style="background-color: #00C9F5;"><%= book.status %></span>
-                                                <% } else if (book.status === "Ongoing") { %>
-                                                    <span class="badge bg-success ms-3"><%= book.status %></span>
-                                                <% } %>
-                                            </div>
-                                            <div class="mt-2">
-                                                <% book.genre.forEach(genre => { %>
-                                                    <span class="badge bg-secondary"><%= genre.trim() %></span>
-                                                <% }) %>
-                                            </div>
-                                            <div class="summary-container">
-                                                <p class="card-text summary-text"><%= book.summary %>...</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <div class="col-md-3">
+                        <div class="row">
+                            <div class="mb-3">
+                                <strong class="d-block">Author</strong>
+                                <span class="badge bg-dark text-white"><%= book.author %></span>
                             </div>
-                        </a>
-                            
+                        
+                            <div class="mb-3">
+                                <strong class="d-block">Artist</strong>
+                                <span class="badge bg-dark text-white"><%= book.author %></span>
+                            </div>
                         </div>
-                    <% }) %>
+                        <!-- Genres Section -->
+                        <div>
+                            <strong class="d-block mb-2">Genres</strong>
+                            <div class="d-flex flex-wrap gap-2">
+                                <% book.genre.forEach(genre => { %>
+                                    <span class="badge bg-secondary"><%= genre %></span>
+                                <% }) %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-9">
+                        <h4 style="font-weight: bold;">Chapters</h4>
+                        <ul class="list-group" s>
+                            
+                        </ul>
+                    </div>
+
                 </div>
             </div>
             

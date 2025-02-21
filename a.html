@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manga Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Banner Background */
+        .manga-banner {
+            background-image: url('./src/public/asset/mao.jpg'); /* Replace with actual cover URL */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 300px; /* Adjust as needed */
+            position: relative;
+        }
+
+        /* Overlay Effect */
+        .manga-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); /* Dark overlay for readability */
+        }
+
+        /* Content Positioning */
+        .manga-content {
+            position: relative;
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+<!-- Manga Banner Section -->
+<div class="manga-banner">
+    <div class="manga-overlay"></div>
+    <div class="container manga-content text-white py-5">
+        <div class="row">
+            <!-- Manga Cover -->
+            <div class="col-md-2 text-center">
+                <img src="./src/public/asset/mao.jpg" alt="Manga Cover" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Manga Details -->
+            <div class="col-md-10">
+                <h1 class="fw-bold">Blue Box</h1>
+                <p class="mb-1">By <strong>Miura Kouji</strong></p>
+
+                <!-- Status & Genres -->
+                <div class="d-flex flex-wrap align-items-center mb-2">
+                    <span class="badge bg-primary me-2">Publication: 2021</span>
+                    <span class="badge bg-success me-2">Ongoing</span>
+                    <span class="badge bg-secondary me-1">Romance</span>
+                    <span class="badge bg-secondary me-1">Sports</span>
+                    <span class="badge bg-secondary me-1">Drama</span>
+                </div>
+
+                <!-- Rating & Stats -->
+                <div class="d-flex align-items-center mb-3">
+                    <span class="text-warning fs-5 me-2">⭐ 9.35</span>
+                    <span class="me-3">33k followers</span>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="d-flex gap-2">
+                    <button class="btn btn-danger"><i class="bi bi-book"></i> Reading</button>
+                    <button class="btn btn-outline-light"><i class="bi bi-plus"></i> Add to MDList</button>
+                    <button class="btn btn-secondary"><i class="bi bi-arrow-right-circle"></i> Continue Reading</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

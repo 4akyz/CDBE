@@ -22,9 +22,12 @@ const bookSchema = new mongoose.Schema({
     cover: {
         type: String,
     },
-    // chapters: {
-    //     type: Array,
-    // },
+    author: {
+        type: String,
+    },
+    chapters: {
+        type: Number,
+    },
 }, {timestamps: true, versionKey: false});
 
 export default mongoose.model('Book', bookSchema);

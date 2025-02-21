@@ -9,9 +9,8 @@ export const renderHome = async (req, res) => {
         console.log(user);
         const username = user.username;
 
-        const books = await Book.find();
+        const books = await Book.find().lean();
         console.log(books);
-        console.log(books.cover);
 
         res.render("home1", {
             username,

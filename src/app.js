@@ -9,6 +9,7 @@ import MongoStore from "connect-mongo";
 import homeRouter from "./routers/home.js";
 import logoutRouter from "./routers/logout.js";
 import bookRouter from "./routers/book.js";
+import bookDetailsRouter from "./routers/bookDetails.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -56,6 +57,7 @@ app.use('/auth', authRouter);
 app.use("/", logoutRouter);
 app.use("/home", homeRouter);
 app.use("/book", bookRouter);
+app.use("/bookDetails", bookDetailsRouter)
 
 
 //dang ky
