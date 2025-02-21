@@ -1,7 +1,7 @@
 import Book from "../models/book";
 import Chapter from "../models/chapter";
 import User from "../models/user";
-
+//ham them chapter
 export const addChapter = async (req,res) => {
     try {
         console.log("Received Request to Add Chapter");
@@ -17,7 +17,7 @@ export const addChapter = async (req,res) => {
         res.status(500).json({message: error.message});
     }
 }
-
+//ham render chapter
 export const renderChapter = async (req, res) => {
     try {
         console.log("Received params:", req.params); // Debugging line
