@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= book.title %> - Chapter <%= chapter.number %></title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <h1><%= book.title %> - Chapter <%= chapter.number %>: <%= chapter.title %></h1>
+
+    <div class="reader-container">
+        <% chapter.pages.forEach(page => { %>
+            <img src="<%= page %>" class="chapter-page" alt="Page">
+        <% }) %>
+    </div>
+
+    <div class="navigation">
+        <% if (chapter.number > 1) { %>
+            <a href="/book/<%= book._id %>/chapter/<%= chapter.number - 1 %>">Previous</a>
+        <% } %>
+        <% if (chapter.number < book.totalChapters) { %>
+            <a href="/book/<%= book._id %>/chapter/<%= chapter.number + 1 %>">Next</a>
+        <% } %>
+    </div>
+</body>
+</html>

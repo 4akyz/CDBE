@@ -1,7 +1,7 @@
 import User from "../models/user";
 import { registerSchema } from "../schema/auth";
 import bcryptjs from "bcryptjs";
-import Product from "../models/product";
+import Book from "../models/book";
 
 //Dang ky
 export const signup = async (req, res) => {
@@ -37,7 +37,7 @@ export const signup = async (req, res) => {
 //dang nhap
 export const signin = async (req, res) => {
     const { username, password } = req.body;
-    const products = await Product.find();
+    const books = await Book.find();
     console.log(req.body)
     console.log(req.session);
     try {
@@ -61,7 +61,7 @@ export const signin = async (req, res) => {
         req.session.userId = user._id;
         req.session.username = user.username;
 
-        res.render("home1", { products ,username: user.username });
+        res.render("home1", {books, username: user.username });
     } catch (err) {
         console.error("Lỗi trong quá trình đăng nhập:", err);
         res.status(500).render("signin", {
@@ -84,15 +84,24 @@ export const renderUpdateUserPage = async (req, res) => {
             return res.redirect("/signin");
         }
 
+        console.log("UserId from session:", req.session.userId);
+
         // Lấy thông tin người dùng từ cơ sở dữ liệu
         const user = await User.findById(req.session.userId);
+        
         if (!user) {
+            console.log("User not found in database for ID:", req.session.userId);
             return res.status(404).send("Không tìm thấy thông tin người dùng.");
         }
 
+        const username = user.username;
+
+        console.log("User found:", user);
+        console.log("Username:", username);
         // Render trang cập nhật với thông tin người dùng
         res.render("updateProfile", { 
             user, // Truyền thông tin người dùng vào view
+            username,
             errors: [] 
         });
     } catch (error) {
@@ -136,22 +145,23 @@ export const updateUserInfo = async (req, res) => {
         });
     }
 };
-
+//Cập nhật mật khẩu
 export const renderUpdateUserPassword = async (req, res) => {
     console.log(req.session);
     try {
         const user = await User.findById(req.session.userId); 
+        const username = user.username;
         if (!user) {
             return res.status(404).send("Không tìm thấy thông tin người dùng.");
         }
 
-        res.render("updatePassword", { user, errors: [] });
+        res.render("updatePassword", { user, username, errors: [] });
     } catch (error) {
         console.error("Lỗi khi hiển thị trang cập nhật thông tin:", error);
         res.status(500).send("Đã xảy ra lỗi, vui lòng thử lại sau.");
     }
 };
-
+//Xu ly cap nhat mat khau
 export const updateUserPassword = async (req, res) => {
     try {
       const { oldPassword, password, confirmPassword } = req.body;

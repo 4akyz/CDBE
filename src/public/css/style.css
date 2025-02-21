@@ -1,0 +1,86 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #197aa7, #00e1ff);
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+}
+    header {
+    background-color: rgba(0, 0, 0, 0.7);
+    width: 100%;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.offcanvas-start {
+    width: 0;
+    transition: width 0.3s ease;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    font-family: 'Poppins', sans-serif;
+}
+#main-content {
+    transition: margin-left 0.3s ease;
+    width: 100%;
+}
+.offcanvas.show {
+    width: 300px;
+}
+.offcanvas-title {cursor: pointer;}
+ 
+.search-container {
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 8px 12px;
+    border-radius: 10px;
+    color: white;
+    width: 300px;
+    margin-right: 10px;
+}
+.search-container input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    flex-grow: 1;
+}
+.search-container input::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+.manga-card {
+    background-color: #2C2C2C;
+    color: white;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+.manga-card img {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+}
+.manga-info {
+    flex-grow: 1;
+}
+.tags span {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    margin-right: 5px;
+}
+.status {
+    background-color: #28a745;
+    padding: 3px 8px;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: white;
+}

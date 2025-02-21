@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Title</title>
+        <title>Trang chu</title>
         <!-- Required meta tags -->
         <meta charset="utf-8" />
         <meta
@@ -16,10 +16,11 @@
             integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
             crossorigin="anonymous"
         />
+        <link rel="stylesheet" href="../src/public/css/style.css" />
         <style>
-                body {
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #197aa7, #00e1ff);
+            body {
+            font-family: 'Poppins', sans-serif;
+            background: #191A1C;
             color: #fff;
             margin: 0;
             padding: 0;
@@ -72,6 +73,46 @@
         .search-container input::placeholder {
             color: rgba(255, 255, 255, 0.6);
         }
+
+        .cover-container {
+            display: flex;
+            justify-content: center; /* Horizontally center */
+            align-items: center; /* Vertically center (if needed) */
+            width: 100%;
+        }
+        .cover-container img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            border-radius: 5px; /* Slight rounding for a clean look */
+        }
+
+        .summary-container::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20px; /* Adjust as needed */
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
+        }
+
+        .summary-container {
+            max-height: 100px; /* Limits height */
+            overflow: hidden;
+            position: relative;
+
+        }
+
+        .summary-text {
+            display: -webkit-box;
+            -webkit-line-clamp: 10; /* Limits the number of visible lines */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            position: relative;
+            text-overflow: ellipsis;
+        }
+        
         </style>
     </head>
 
@@ -115,7 +156,7 @@
         </header>
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" data-bs-backdrop="false" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header" style="color: white;">
-                <h5 class="offcanvas-title" data-bs-dismiss="offcanvas" id="offcanvasNavbarLabel">Web</h5>
+                <h5 class="offcanvas-title" data-bs-dismiss="offcanvas" id="offcanvasNavbarLabel">aBOOKS</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
             </div>
             <hr>
@@ -128,44 +169,23 @@
                 </ul>
             </div>
         </div>
-            <div class="container mt-5">
-                <% if (errors && errors.length > 0) { %>
-                    <div class="errors">
-                        <ul>
-                            <% errors.forEach(error => { %>
-                                <li><%= error %></li>
-                            <% }) %>
-                        </ul>
-                    </div>
-                <% } %>
-                <div class="row justify-content-center">
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Cap Nhat Mat Khau</h4>
-                            </div>
-                            <div class="card-body">
-                                <form action="/auth/update-password" method="POST">
-                                    <div class="mb-3">
-                                        <label for="oldPassword" class="form-label">Mật khẩu cũ:</label>
-                                        <input type="password" class="form-control" id="oldPassword" name="oldPassword" required />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Mật khẩu mới:</label>
-                                        <input type="password" id="password" class="form-control" name="password" required />
-                                    </div>
-                                    <div class="mb-3">
-                                        <label for="confirmPassword" class="form-label">Xác nhận mật khẩu mới:</label>
-                                        <input type="password" id="confirmPassword" class="form-control" name="confirmPassword" required />
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Cập nhật mật khẩu</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <main id="main-content" class="p-3">
+            <div class="container mt-4" style="font-family: 'Poppins',sans-serif;">
+                <h1>About Us</h1>
+                <p>Trang Web aBOOKS là một trang web đọc truyện tranh trực tuyến. aBOOKS được phát triển để phục vụ cho mục đích làm dự
+                    án kết thúc môn của môn học Chuyên đề Backend dưới sự hướng dẫn của thầy Lê Ngọc Huân. <br>
+                    <br>
+                    aBOOKS được phát triển bởi nhóm sinh viên gồm 2 thành viên: Cao Phi Hùng và Thái Huỳnh Trung Hiếu.
+                </p>
+                <hr>
+                <p>
+                    <span style="font-weight: bold;">Thành viên nhóm :</span> <br>
+                    - Cao Phi Hùng <br>
+                    - Thái Huỳnh Trung Hiếu <br>
+                </p>
             </div>
-        
+            
+        </main>
         <!-- Bootstrap JavaScript Libraries -->
         <script
             src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -178,5 +198,21 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script>
+            var offcanvasElement = document.getElementById('offcanvasNavbar');
+            var mainContent = document.getElementById('main-content');
+            var openSidebarBtn = document.getElementById('openSidebar');
+            var closeSidebarBtn = document.getElementById('closeSidebar');
+            
+            openSidebarBtn.addEventListener('click', function () {
+                offcanvasElement.classList.add('show');
+                mainContent.style.marginLeft = '300px';
+            });
+            
+            closeSidebarBtn.addEventListener('click', function () {
+                offcanvasElement.classList.remove('show');
+                mainContent.style.marginLeft = '0';
+            });
+        </script>
     </body>
 </html>

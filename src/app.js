@@ -8,6 +8,10 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import homeRouter from "./routers/home.js";
 import logoutRouter from "./routers/logout.js";
+import bookRouter from "./routers/book.js";
+import bookDetailsRouter from "./routers/bookDetails.js";
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 
 dotenv.config();
@@ -20,10 +24,13 @@ app.use(express.json());
 
 app.use(morgan("tiny"));
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 app
 .set('View', './views')
 .set('view engine', 'ejs')
-.use(express.static('./public'));
+.use(express.static(path.join(__dirname,'public')));
 
 
 //Session
@@ -48,7 +55,10 @@ connectDB(process.env.DB_URI);
 app.use('/api', productRouter);
 app.use('/auth', authRouter);
 app.use("/", logoutRouter);
-// app.use("/", updateRouter);
+app.use("/home", homeRouter);
+app.use("/book", bookRouter);
+app.use("/bookDetails", bookDetailsRouter)
+
 
 //dang ky
 app.get("/signup", (req, res) => {
@@ -64,7 +74,5 @@ const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server đang chạy tại http://localhost:${PORT}`);
 });
-
-app.use("/", homeRouter);
 
 export const viteNodeApp = app;
