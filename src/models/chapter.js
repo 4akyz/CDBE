@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Chapter from "../models/chapter";
 
 const chapterSchema = new mongoose.Schema({
     bookId: { type: mongoose.Schema.Types.ObjectId, ref: 'Book' },
