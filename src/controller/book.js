@@ -12,7 +12,7 @@ export const getBooks = async (req,res) => {
         res.status(500).json({message: error.message});
     }
 }
-
+//ham tim sach theo id
 export const getBookById = async (req,res) => {
     try {
         const data = await Book.findOne({_id: req.params.id});
@@ -24,7 +24,7 @@ export const getBookById = async (req,res) => {
         res.status(500).json({message: error.message});
     }
 }
-
+//ham them sach
 export const addBook = async (req,res) => {
     try {
         console.log("Received Data:", req.body);

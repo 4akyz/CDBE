@@ -101,7 +101,6 @@
             max-height: 100px; /* Limits height */
             overflow: hidden;
             position: relative;
-
         }
 
         .summary-text {
@@ -111,6 +110,22 @@
             overflow: hidden;
             position: relative;
             text-overflow: ellipsis;
+        }
+        #searchDropdown {
+            position: absolute;
+            top: 100%; /* Ensures it appears right below */
+            left: 0;
+            z-index: 1000; /* Keeps it on top of other elements */
+            display: none; /* Initially hidden */
+        }
+
+        #searchDropdown.show {
+            display: block; /* Shows dropdown when needed */
+        }
+
+        #searchDropdown li {
+            padding: 10px;
+            cursor: pointer;
         }
         
         </style>
@@ -128,8 +143,9 @@
                 </ul>
                 <ul class="nav navbar-nav ms-auto">
                         <li class="nav-item">
-                            <div class="search-container">
-                                <input type="text" placeholder="Search">
+                            <div class="search-container position-relative">
+                                <input type="text" id="searchInput" class="form-control bg-dark text-white" placeholder="Search">
+                                <ul id="searchDropdown" class="dropdown-menu w-100"></ul>
                             </div>
                         </li>
                         <li class="nav-item">
@@ -142,7 +158,7 @@
                                     aria-haspopup="true"
                                     aria-expanded="false"
                                 >
-                                <span><%=username %></span>
+                                <span></span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="triggerId">
                                     <a class="dropdown-item" href="/auth/update-info">Cap Nhat Thong Tin</a>
@@ -156,7 +172,7 @@
         </header>
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" data-bs-backdrop="false" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header" style="color: white;">
-                <h5 class="offcanvas-title" data-bs-dismiss="offcanvas" id="offcanvasNavbarLabel">aBOOKS</h5>
+                <h5 class="offcanvas-title" data-bs-dismiss="offcanvas" style="font-weight: 800;" id="offcanvasNavbarLabel">aBOOKS</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close" ></button>
             </div>
             <hr>
@@ -171,9 +187,49 @@
         </div>
         <main id="main-content" class="p-3">
             <div class="container mt-4">
-                
+                <h4>Search Results</h4>
+                <div class="row">
+                    <% books.forEach(book => { %>
+                        <div class="col-md-6">
+                            <a href="/bookDetails/<%= book._id %>" class="text-decoration-none">
+                                <div class="card mb-3 bg-dark text-white">
+                                    <div class="row g-0">
+                                        <div class="col-md-3 d-flex justify-content-center align-items-center">
+                                            <div class="cover-container">
+                                                <img src="<%= book.cover %>" class="img-fluid m-2" alt="<%= book.title %>">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="card-body">
+                                                <h5 class="card-title">
+                                                    <span class="me-2"></span> <%= book.title %>
+                                                </h5>
+                                                <div class="d-flex align-items-center">
+                                                    <span>⭐ <%= book.rating.toFixed(2) %></span>
+                                                    <span class="ms-3">📖 <%= book.follow.toLocaleString() %></span>
+                                                    <% if (book.status === "Completed") { %>
+                                                        <span class="badge ms-3" style="background-color: #00C9F5;"><%= book.status %></span>
+                                                    <% } else if (book.status === "Ongoing") { %>
+                                                        <span class="badge bg-success ms-3"><%= book.status %></span>
+                                                    <% } %>
+                                                </div>
+                                                <div class="mt-2">
+                                                    <% book.genre.forEach(genre => { %>
+                                                        <span class="badge bg-secondary"><%= genre.trim() %></span>
+                                                    <% }) %>
+                                                </div>
+                                                <div class="summary-container">
+                                                    <p class="card-text summary-text"><%= book.summary %>...</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    <% }) %>
+                </div>
             </div>
-            
         </main>
         <!-- Bootstrap JavaScript Libraries -->
         <script
@@ -188,20 +244,45 @@
             crossorigin="anonymous"
         ></script>
         <script>
-            var offcanvasElement = document.getElementById('offcanvasNavbar');
-            var mainContent = document.getElementById('main-content');
-            var openSidebarBtn = document.getElementById('openSidebar');
-            var closeSidebarBtn = document.getElementById('closeSidebar');
-            
-            openSidebarBtn.addEventListener('click', function () {
-                offcanvasElement.classList.add('show');
-                mainContent.style.marginLeft = '300px';
+            document.addEventListener("DOMContentLoaded", () => {
+            const searchInput = document.getElementById("searchInput");
+            const searchDropdown = document.getElementById("searchDropdown");
+
+            searchInput.addEventListener("input", async () => {
+                const query = searchInput.value.trim();
+                if (query.length < 2) {
+                    searchDropdown.innerHTML = "";
+                    searchDropdown.classList.remove("show");
+                    return;
+                }
+
+                try {
+                    const response = await fetch(`/book/search?query=${query}`);
+                    const books = await response.json();
+
+                    searchDropdown.innerHTML = books
+                        .map(book => `<li><a class="dropdown-item" href="/book/${book._id}">${book.title}</a></li>`)
+                        .join("");
+
+                    searchDropdown.classList.add("show");
+                } catch (error) {
+                    console.error("Error fetching books:", error);
+                }
             });
-            
-            closeSidebarBtn.addEventListener('click', function () {
-                offcanvasElement.classList.remove('show');
-                mainContent.style.marginLeft = '0';
+
+            searchInput.addEventListener("keydown", (event) => {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                    window.location.href = `/book/search/results?query=${searchInput.value.trim()}`;
+                }
             });
+
+            document.addEventListener("click", (event) => {
+                if (!searchInput.contains(event.target) && !searchDropdown.contains(event.target)) {
+                    searchDropdown.classList.remove("show");
+                }
+            });
+        });
         </script>
     </body>
 </html>
