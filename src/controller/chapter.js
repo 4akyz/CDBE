@@ -24,7 +24,9 @@ export const renderChapter = async (req, res) => {
 
         const user = await User.findById(req.session.userId);
         const { bookId, chapterNumber } = req.params;
+        const book = await Book.findById(bookId);
         const username = user.username;
+        
         // Find chapter by bookId and chapterNumber
         const chapter = await Chapter.findOne({ bookId, chapterNumber });
 
@@ -34,7 +36,7 @@ export const renderChapter = async (req, res) => {
             return res.status(404).json({ message: "Chapter not found" });
         }
 
-        res.render("reading", { chapter, username });
+        res.render("reading", { chapter, username, book });
     } catch (error) {
         console.error("Error fetching chapter:", error); // Debugging line
         res.status(500).json({ message: error.message });
